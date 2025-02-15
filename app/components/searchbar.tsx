@@ -36,13 +36,13 @@ export default function SearchBar({ theme, onSearch }: { theme: any; onSearch: (
 
 const styles = StyleSheet.create({
   container: {
-    width: '95%',
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
     borderRadius: 12,
     borderWidth: 2,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   label: {
     fontSize: 20,

@@ -67,7 +67,7 @@ export default function Catalog({ theme, onSelect }: { theme: any; onSelect: (po
             <FlatList
               data={storage}
               keyExtractor={(item) => item.id.toString()}
-              numColumns={2}
+              numColumns={3}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={[styles.card, { backgroundColor: theme.background[1], borderColor: theme.border }]}
@@ -87,7 +87,7 @@ export default function Catalog({ theme, onSelect }: { theme: any; onSelect: (po
       ) : (
         // Selected Pokémon Details (Centered)
         <View style={styles.detailsContainer}>
-          <Text style={[styles.pokemonName, { color: theme.text }]}>{storage[0].name}</Text>
+          {/* <Text style={[styles.pokemonName, { color: theme.text }]}>{storage[0].name}</Text> */}
 
           {/* 🖼️ Centered Sprite Display */}
           <View style={styles.spriteWrapper}>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     borderWidth: 2,
-    alignItems: 'center',
+    marginBottom: 5
   },
   loadingContainer: {
     flex: 1,
@@ -146,13 +146,19 @@ const styles = StyleSheet.create({
   paginationContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '80%',
     marginBottom: 10,
+    alignItems: 'center',
   },
   button: {
     padding: 10,
     borderRadius: 10,
     borderWidth: 2,
+    width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '10%',
+    marginRight:'10%'
   },
   buttonText: {
     fontSize: 16,
@@ -164,9 +170,11 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    aspectRatio: 1, // Makes the card square
+    aspectRatio: '1', // Makes the card square
     padding: 10,
     margin: 1,
+    // width: 50,
+    // height: 50,
     borderWidth: 2,
     borderRadius: 12,
     alignItems: 'center',
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pokemonName: {
-    fontSize: 16,
+    fontSize: 12.15,
     fontWeight: 'bold',
     textTransform: 'capitalize',
     textAlign: 'center',
@@ -209,21 +217,22 @@ const styles = StyleSheet.create({
   },
   imageCard: {
     width: 100, // ✅ Increased for better spacing
-    height: 100,
+    height: 90,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
     borderWidth: 2,
-    margin: 5,
+    margin: 3,
     backgroundColor: '#fff',
+    marginTop: 0
   },
   fullSizeImage: {
-    width: '130%',
-    height: '130%',
+    width: '140%',
+    height: '140%',
   },
   backButton: {
     width: '90%',
-    marginTop: 20,
+    marginTop: 5,
     paddingVertical: 15,
     borderWidth: 2,
     borderRadius: 12,

@@ -43,7 +43,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<string | null>(null);
   const [search, setSearch] = useState<string | null>(null);
   const [offset, setOffset] = useState<number>(0);
-  const limit = 18;
+  const limit = 30;
 
   useEffect(() => {
     const fetchData = async () => {

@@ -21,7 +21,7 @@ export default function PokedexScreen() {
   }
 
   return (
-    <LinearGradient colors={theme.background} style={styles.container}>
+    <LinearGradient  colors={theme.background} style={styles.container}>
       {/* 🔍 Search Bar Stays at the Top */}
       <SearchBar onSearch={handleSearch} theme={theme} />
 
@@ -49,18 +49,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   flexContainer: {
     flex: 1,
-    flexDirection: 'row', // 📌 Makes Catalog & Details side by side
+    flexDirection: 'column', // 📌 Makes Catalog & Details side by side
   },
   catalogContainer: {
     flex: 1, // 📜 Takes 50% of the screen
-    paddingRight: 5, // Adds spacing between catalog & details
+    // paddingRight: 5, // Adds spacing between catalog & details
   },
   detailsContainer: {
     flex: 1, // 📝 Takes 50% of the screen
-    paddingLeft: 5,
+    // paddingLeft: 5,
   },
 });
 

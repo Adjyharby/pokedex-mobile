@@ -28,17 +28,19 @@ export default function Details({ theme }: { theme: any }) {
         </View>
       ) : (
         // Pokémon Selected - Show Details
-        <ScrollView>
+        <View >
           <View style={styles.detailsContainer}>
-            <Text style={[styles.pokemonName, { color: theme.text }]}>{pokemon.name}</Text>
+          <View style={[styles.scroller]}>
+          <Text style={[styles.pokemonName, { color: theme.text }]}>{pokemon.name}</Text>
 
-            {/* Pokémon Image */}
-            <View style={[styles.imageContainer, { backgroundColor: theme.background[1] }]}>
-              {pokemon.sprites?.other?.['official-artwork']?.front_default ? (
-                <Image source={{ uri: pokemon.sprites.other['official-artwork'].front_default }} style={styles.largeImage} />
-              ) : (
-                <Text style={[styles.imagePlaceholder, { color: theme.text }]}>No Image</Text>
-              )}
+{/* Pokémon Image */}
+<View style={[styles.imageContainer, { backgroundColor: theme.background[1] }]}>
+  {pokemon.sprites?.other?.['official-artwork']?.front_default ? (
+    <Image source={{ uri: pokemon.sprites.other['official-artwork'].front_default }} style={styles.largeImage} />
+  ) : (
+    <Text style={[styles.imagePlaceholder, { color: theme.text }]}>No Image</Text>
+  )}
+</View>
             </View>
 
             {/* Pokémon Stats (Now Below Image) */}
@@ -90,13 +92,17 @@ export default function Details({ theme }: { theme: any }) {
               </View>
             </View>
           </View>
-        </ScrollView>
+        </View>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  scroller:{
+    // flex: 1,
+    flexDirection: 'row',
+    },
   container: {
     flex: 1,
     padding: 15,
@@ -123,13 +129,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   imageContainer: {
-    width: '100%', // 📌 Increased image size
-    height: '100%',
+    aspectRatio: 1,
+    width: '40%', // 📌 Increased image size
+    height: '35%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     borderWidth: 2,
-    marginTop: 15,
+    marginTop: 5,
   },
   imagePlaceholder: {
     fontSize: 16,
@@ -140,19 +147,23 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 5,
   },
   pokemonName: {
-    fontSize: 30, // 📌 Increased font size
+    fontSize: 25, // 📌 Increased font size
     fontWeight: 'bold',
     textTransform: 'capitalize',
+    alignContent: 'center',
+    justifyContent: 'center',
+    textAlignVertical: 'center',
     textAlign: 'center',
+    marginRight: 10
   },
   statsContainer: { // 📌 Moves the stats below the image
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    marginTop: 20,
+    marginTop: 10,
   },
   statColumn: { // 📌 Ensures stats are grouped into two columns
     flex: 1,
