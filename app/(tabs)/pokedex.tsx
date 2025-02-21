@@ -23,22 +23,28 @@ export default function PokedexScreen() {
   return (
     <LinearGradient  colors={theme.background} style={styles.container}>
       {/* 🔍 Search Bar Stays at the Top */}
-      <SearchBar onSearch={handleSearch} theme={theme} />
 
       {/* ⚡ Side-by-Side Layout (Catalog on Left, Details on Right) */}
       {storage === null ? (
         <ActivityIndicator size="large" color={theme.text} />
       ) : (
         <View style={styles.flexContainer}>
-          {/* 📜 Pokémon List (Left) */}
-          <View style={styles.catalogContainer}>
+          {selected === null ? (
+            // {/* 📜 Pokémon List (Left) */}
+            <View style={styles.catalogContainer}>
+            <SearchBar onSearch={handleSearch} theme={theme} />
             <Catalog onSelect={handleSelect} theme={theme} />
           </View>
 
-          {/* 📝 Pokémon Details (Right) */}
+          ):(
+          // {/* 📝 Pokémon Details (Right) */}
           <View style={styles.detailsContainer}>
             {selected && <Details theme={theme} />}
           </View>
+            
+          )}
+
+
         </View>
       )}
     </LinearGradient>
@@ -53,8 +59,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   flexContainer: {
+    // marginLeft: "100%",
+    width:'100%',
     flex: 1,
-    flexDirection: 'column', // 📌 Makes Catalog & Details side by side
   },
   catalogContainer: {
     flex: 1, // 📜 Takes 50% of the screen

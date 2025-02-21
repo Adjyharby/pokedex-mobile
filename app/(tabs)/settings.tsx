@@ -18,7 +18,7 @@ export default function SettingsScreen() {
       <View style={styles.gridContainer}>
         <FlatList
           data={themeKeys}
-          numColumns={4} // 4 columns per row
+          numColumns={3} 
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <TouchableOpacity

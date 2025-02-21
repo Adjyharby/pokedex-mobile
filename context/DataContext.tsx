@@ -33,18 +33,19 @@ interface DataContextType {
   offset: number;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   limit: number;
+  pokemonLore: string | null; 
 }
 
 export const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export function DataProvider({ children }: { children: ReactNode }) {
+  const [pokemonLore, setPokemonLore] = useState<string | null>(null);
   const [storage, setStorage] = useState<Pokemon[] | null>(null);
   const [allPokemon, setAllPokemon] = useState<Pokemon[] | null>(null); // Store all Pokémon for searching
   const [selected, setSelected] = useState<string | null>(null);
   const [search, setSearch] = useState<string | null>(null);
   const [offset, setOffset] = useState<number>(0);
-  const limit = 30;
-
+  const limit = 60;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -84,29 +85,44 @@ export function DataProvider({ children }: { children: ReactNode }) {
             })
           );
           setStorage(detailedData);
+          setPokemonLore(null); // Reset lore when browsing
         } else if (selected) {
-          // Fetch a specific Pokémon
+          // Fetch selected Pokémon details
           const response = await fetch(`${POKEMON_API}/${selected}`);
           const data = await response.json();
-          setStorage([data]); // Wrap in an array for consistency
+          setStorage([data]); // Wrap in array for consistency
+  
+          // 🔥 Fetch Pokémon Species Data for Lore
+          const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${selected}`);
+          const speciesData = await speciesResponse.json();
+  
+          // Find the first English Pokédex entry
+          const englishEntry = speciesData.flavor_text_entries.find(
+            (entry: { language: { name: string } }) => entry.language.name === "en"
+          );
+  
+          setPokemonLore(englishEntry ? englishEntry.flavor_text.replace(/[\n\f]/g, " ") : "No lore available.");
         } else if (search && allPokemon) {
           // Filter locally for partial matches
           const filteredData = allPokemon.filter((pokemon) =>
             pokemon.name.includes(search.toLowerCase())
           );
           setStorage(filteredData);
+          setPokemonLore(null); // Reset lore when searching
         }
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
         setStorage(null);
+        setPokemonLore(null);
       }
     };
-
+  
     fetchData();
   }, [search, selected, offset, allPokemon]);
+  
 
   return (
-    <DataContext.Provider value={{ storage, setStorage, selected, setSelected, search, setSearch, offset, setOffset, limit }}>
+    <DataContext.Provider value={{ storage, setStorage, selected, setSelected, search, setSearch, offset, setOffset, limit, pokemonLore }}>
       {children}
     </DataContext.Provider>
   );

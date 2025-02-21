@@ -9,6 +9,8 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { ThemeProvider } from '@/context/ThemeContext'; // 🎨 Theme Context
 import { DataProvider } from '@/context/DataContext';   // 🔥 Data Context
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -23,9 +25,20 @@ export default function TabLayout() {
             tabBarButton: HapticTab,
             tabBarBackground: TabBarBackground,
             tabBarStyle: Platform.select({
-              ios: { position: 'absolute' },
-              default: {},
+              ios: {
+                position: 'absolute',
+                backgroundColor: 'black', // Change tab background color
+                borderTopWidth: 0, // Optional: Remove top border for a clean look
+              },
+              android: {
+                backgroundColor: 'black', // Change background for Android as well
+                elevation: 10, // Adds a shadow effect on Android
+              },
+              default: {
+                backgroundColor: 'black',
+              },
             }),
+            
           }}>
           {/* 🔥 Hidden index.tsx (it won't appear in the tab bar) */}
           <Tabs.Screen
@@ -38,16 +51,16 @@ export default function TabLayout() {
             options={{
               title: 'Pokédex',
               href: '/pokedex',
-              tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+              tabBarIcon: () =><AntDesign name="book" size={24} color="white" />,
             }}
           />
 
           <Tabs.Screen
             name="settings"
             options={{
-              title: 'Settings',
+              title: 'Themes',
               href: '/settings',
-              tabBarIcon: ({ color }) => <IconSymbol size={28} name="gearshape.fill" color={color} />,
+              tabBarIcon: () => <MaterialCommunityIcons name="theme-light-dark" size={24} color="white" />
             }}
           />
         </Tabs>

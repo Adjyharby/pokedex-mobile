@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native';
 
 // Pokémon Type Themes with Button & Gradient Colors
 export const themes: Record<string, { background: [string, string, ...string[]]; text: string; button: string; border: string }> = {
-    light: { background: ['#ffffff', '#eeeeee'], text: '#000', button: '#ddd', border: '#aaa' },
+    // light: { background: ['#ffffff', '#eeeeee'], text: '#000', button: '#ddd', border: '#aaa' },
     darkType: { background: ['#2C2C2C', '#1A1A1A'], text: '#fff', button: '#444', border: '#555' },
     water: { background: ['#6390F0', '#1E5FFF'], text: '#fff', button: '#4A79D3', border: '#1E5FFF' },
     fairy: { background: ['#EE99AC', '#F9C7D4'], text: '#fff', button: '#E47291', border: '#EE99AC' },

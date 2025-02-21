@@ -33,7 +33,7 @@ export default function Catalog({ theme, onSelect }: { theme: any; onSelect: (po
 
   return (
     <View style={[styles.container, { backgroundColor: theme.button, borderColor: theme.border }]}>
-      {selected == null ? (
+      
         <>
           {/* Pagination Buttons */}
           <View style={styles.paginationContainer}>
@@ -84,43 +84,6 @@ export default function Catalog({ theme, onSelect }: { theme: any; onSelect: (po
             <Text style={[styles.loadingText, { color: theme.text }]}>No Pokémon found.</Text>
           )}
         </>
-      ) : (
-        // Selected Pokémon Details (Centered)
-        <View style={styles.detailsContainer}>
-          {/* <Text style={[styles.pokemonName, { color: theme.text }]}>{storage[0].name}</Text> */}
-
-          {/* 🖼️ Centered Sprite Display */}
-          <View style={styles.spriteWrapper}>
-            <View style={styles.imageContainer}>
-              {storage[0].sprites.front_default && (
-                <View style={styles.imageCard}>
-                  <Image source={{ uri: storage[0].sprites.front_default }} style={styles.fullSizeImage} resizeMode="contain" />
-                </View>
-              )}
-              {storage[0].sprites.back_default && (
-                <View style={styles.imageCard}>
-                  <Image source={{ uri: storage[0].sprites.back_default }} style={styles.fullSizeImage} resizeMode="contain" />
-                </View>
-              )}
-              {storage[0].sprites.front_shiny && (
-                <View style={styles.imageCard}>
-                  <Image source={{ uri: storage[0].sprites.front_shiny }} style={styles.fullSizeImage} resizeMode="contain" />
-                </View>
-              )}
-              {storage[0].sprites.back_shiny && (
-                <View style={styles.imageCard}>
-                  <Image source={{ uri: storage[0].sprites.back_shiny }} style={styles.fullSizeImage} resizeMode="contain" />
-                </View>
-              )}
-            </View>
-
-            {/* 🔙 Centered Full-Width "Back" Button */}
-            <TouchableOpacity style={styles.backButton} onPress={() => setSelected(null)}>
-              <Text style={[styles.backText, { color: theme.text }]}>Tap to go back</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
     </View>
   );
 }

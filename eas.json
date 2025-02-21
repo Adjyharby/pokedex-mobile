@@ -11,7 +11,7 @@
     "preview": {
       "distribution": "internal"
     },
-    "test:apk": {
+    "Adjourner": {
       "android": {
         "buildType": "apk"
       }},

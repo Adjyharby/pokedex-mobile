@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { TouchableOpacity,View, Text, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native';
 import { useContext } from 'react';
+import { Audio } from "expo-av";  
 import { DataContext } from '../../context/DataContext';
 
 export default function Details({ theme }: { theme: any }) {
-  const { storage, selected } = useContext(DataContext)!;
+  const { storage, selected, setSelected,pokemonLore } = useContext(DataContext)!;
 
   if (!storage || storage.length === 0) {
     return (
@@ -17,6 +18,7 @@ export default function Details({ theme }: { theme: any }) {
   const pokemon = storage[0]; // Get selected Pokémon
 
   return (
+<ScrollView style={{marginTop:20}}>
     <View style={[styles.container, { backgroundColor: theme.button, borderColor: theme.border }]}>
       {selected == null ? (
         // No Pokémon selected
@@ -28,7 +30,7 @@ export default function Details({ theme }: { theme: any }) {
         </View>
       ) : (
         // Pokémon Selected - Show Details
-        <View >
+<View >
           <View style={styles.detailsContainer}>
           <View style={[styles.scroller]}>
           <Text style={[styles.pokemonName, { color: theme.text }]}>{pokemon.name}</Text>
@@ -92,9 +94,65 @@ export default function Details({ theme }: { theme: any }) {
               </View>
             </View>
           </View>
+
+                  {/* // Selected Pokémon Details (Centered) */}
+        <View style={styles.detailsContainer2}>
+          {/* <Text style={[styles.pokemonName, { color: theme.text }]}>{storage[0].name}</Text> */}
+
+          {/* 🖼️ Centered Sprite Display */}
+          <View style={styles.spriteWrapper}>
+            <View >
+              {storage[0].sprites.front_default && (
+                <View style={styles.imageCard}>
+                  <Image source={{ uri: storage[0].sprites.front_default }} style={styles.fullSizeImage} resizeMode="contain" />
+                </View>
+              )}
+              {storage[0].sprites.back_default && (
+                <View style={styles.imageCard}>
+                  <Image source={{ uri: storage[0].sprites.back_default }} style={styles.fullSizeImage} resizeMode="contain" />
+                </View>
+              )}
+              {storage[0].sprites.front_shiny && (
+                <View style={styles.imageCard}>
+                  <Image source={{ uri: storage[0].sprites.front_shiny }} style={styles.fullSizeImage} resizeMode="contain" />
+                </View>
+              )}
+              {storage[0].sprites.back_shiny && (
+                <View style={styles.imageCard}>
+                  <Image source={{ uri: storage[0].sprites.back_shiny }} style={styles.fullSizeImage} resizeMode="contain" />
+                </View>
+              )}
+            </View>
+              <View style={{flex:1, marginLeft:'2.5%'}}>
+
+              <View style={{    borderWidth: 2,
+    borderRadius: 12,
+    alignItems: 'center',
+    // backgroundColor: '#444',
+    height:'74%',
+    // maxHeight:'49%',
+    marginBottom:"2%"}}>
+  <Text style={[styles.loreTitle, { color: theme.text }]}>Pokédex Entry:</Text>
+  {pokemonLore ? (
+    <Text style={[styles.loreText, { color: theme.text }]}>{pokemonLore}</Text>
+  ) : (
+    <ActivityIndicator size="small" color={theme.text} />
+  )}
+</View>
+
+            {/* 🔙 Centered Full-Width "Back" Button */}
+            <TouchableOpacity style={styles.backButton} onPress={() => setSelected(null)}>
+              <Text style={[styles.backText, { color: theme.text }]}>Tap to go back</Text>
+            </TouchableOpacity>
+              </View>
+          </View>
         </View>
+        </View>
+
+        
       )}
     </View>
+</ScrollView>
   );
 }
 
@@ -148,6 +206,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     alignItems: 'center',
     marginTop: 5,
+    
   },
   pokemonName: {
     fontSize: 25, // 📌 Increased font size
@@ -183,4 +242,103 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 12,
   },
+  detailsContainer2: {
+    marginTop: 10,
+    flex: 1,
+    width: '100%',
+    flexDirection:'row'
+    // alignItems: 'center',
+    // justifyContent: 'center', // ✅ Centers all content inside
+  },
+  button: {
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '10%',
+    marginRight:'10%'
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  card: {
+    flex: 1,
+    aspectRatio: '1', // Makes the card square
+    padding: 10,
+    margin: 1,
+    // width: 50,
+    // height: 50,
+    borderWidth: 2,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageWrapper: {
+    width: '100%',
+    height: '80%',
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '150%',
+    height: '150%',
+  },
+  spriteWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    // justifyContent: 'center', // ✅ Ensures sprites are centered vertically
+    // alignItems: 'center',
+    // width: '100%',
+
+  },
+  imageCard: {
+    width: 100, // ✅ Increased for better spacing
+    height: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    borderWidth: 2,
+    margin: 3,
+    // backgroundColor: '#fff',
+    marginTop: 0
+  },
+  fullSizeImage: {
+    width: '140%',
+    height: '140%',
+  },
+  backButton: {
+    width: '100%',
+    height:'24%',
+    // marginTop: 5,
+    paddingVertical: 15,
+    borderWidth: 2,
+    borderRadius: 12,
+    alignItems: 'center',
+    // backgroundColor: '#444',
+    justifyContent: 'center',
+  },
+  backText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+
+  loreTitle: {
+  fontSize: 18,
+  fontWeight: "bold",
+  marginBottom: 5,
+  
+},
+loreText: {
+  fontSize: 14,
+  fontStyle: "italic",
+  lineHeight: 22,
+  textAlign: "center",
+  paddingHorizontal: 10,
+},
+
 });
