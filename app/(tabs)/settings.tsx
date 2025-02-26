@@ -24,7 +24,7 @@ export default function SettingsScreen() {
             <TouchableOpacity
               style={[
                 styles.card,
-                { backgroundColor: themes[item].button, borderColor: themes[item].border },
+                { backgroundColor: themes[item].button, borderColor: themes[item].border, width:100, }
               ]}
               onPress={() => setTheme(item as keyof typeof themes)}
             >
@@ -46,15 +46,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginTop: 20,
+    marginBottom: 20,
   },
   gridContainer: {
     width: '100%',
-    height: SCREEN_HEIGHT / 2, // Takes up half the screen
+    height: SCREEN_HEIGHT /1.33, // Takes up half the screen
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 12,
   },
   card: {
     width: CARD_SIZE,
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   cardText: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },

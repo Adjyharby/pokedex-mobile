@@ -6,6 +6,8 @@ import { DataContext } from '../../context/DataContext';
 import SearchBar from '../components/searchbar';
 import Catalog from '../components/catalog';
 import Details from '../components/details';
+import { Link } from 'expo-router';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function PokedexScreen() {
   const { theme } = useTheme();
@@ -32,8 +34,10 @@ export default function PokedexScreen() {
           {selected === null ? (
             // {/* 📜 Pokémon List (Left) */}
             <View style={styles.catalogContainer}>
-            <SearchBar onSearch={handleSearch} theme={theme} />
-            <Catalog onSelect={handleSelect} theme={theme} />
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',}}>
+          <SearchBar onSearch={handleSearch} theme={theme} />
+          </View>
+          <Catalog onSelect={handleSelect} theme={theme} />
           </View>
 
           ):(

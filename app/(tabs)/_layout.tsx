@@ -63,6 +63,14 @@ export default function TabLayout() {
               tabBarIcon: () => <MaterialCommunityIcons name="theme-light-dark" size={24} color="white" />
             }}
           />
+          <Tabs.Screen
+            name="camera"
+            options={{
+              title: 'Camera',
+              href: '/camera',
+              tabBarIcon: () => <MaterialCommunityIcons name="camera" size={24} color="white" />
+            }}
+          />
         </Tabs>
       </ThemeProvider>
     </DataProvider>

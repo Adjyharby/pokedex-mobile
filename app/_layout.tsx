@@ -34,6 +34,7 @@ export default function RootLayout() {
       <NavigationThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         {/* React Navigation ThemeProvider */}
         <Stack>
+          {/* <Stack.Screen name="camera/index" options={{headerShown:false}} /> */}
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
